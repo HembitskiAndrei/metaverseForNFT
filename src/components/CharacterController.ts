@@ -1125,66 +1125,66 @@ export class CharacterController {
       if (this._moveVector.length() > 0.001) {
         this._avatar.moveWithCollisions(this._moveVector);
         //walking up a slope
-        if (this._avatar.position.y > this._avStartPos.y) {
-          const actDisp: Vector3 = this._avatar.position.subtract(this._avStartPos);
-          const _slp: number = this._verticalSlope(actDisp);
-          if (_slp >= this._sl2) {
-            //this._climbingSteps=true;
-            //is av trying to go up steps
-            if (this._stepOffset > 0) {
-              if (this._vMoveTot == 0) {
-                //if just started climbing note down the position
-                this._vMovStartPos.copyFrom(this._avStartPos);
-              }
-              this._vMoveTot = this._vMoveTot + (this._avatar.position.y - this._avStartPos.y);
-              if (this._vMoveTot > this._stepOffset) {
-                //move av back to its position at begining of steps
-                this._vMoveTot = 0;
-                this._avatar.position.copyFrom(this._vMovStartPos);
-                this._endFreeFall();
-              }
-            } else {
-              //move av back to old position
-              this._avatar.position.copyFrom(this._avStartPos);
-              this._endFreeFall();
-            }
-          } else {
-            this._vMoveTot = 0;
-            if (_slp > this._sl1) {
-              //av is on a steep slope , continue increasing the moveFallTIme to deaccelerate it
-              this._fallFrameCount = 0;
-              this._inFreeFall = false;
-            } else {
-              //continue walking
-              this._endFreeFall();
-            }
-          }
-        } else if ((this._avatar.position.y) < this._avStartPos.y) {
-          const actDisp: Vector3 = this._avatar.position.subtract(this._avStartPos);
-          if (!(this._areVectorsEqual(actDisp, this._moveVector, 0.001))) {
-            //AV is on slope
-            //Should AV continue to slide or walk?
-            //if slope is less steeper than acceptable then walk else slide
-            if (this._verticalSlope(actDisp) <= this._sl1) {
-              this._endFreeFall();
-            } else {
-              //av is on a steep slope , continue increasing the moveFallTIme to deaccelerate it
-              this._fallFrameCount = 0;
-              this._inFreeFall = false;
-            }
-          } else {
-            this._inFreeFall = true;
-            this._fallFrameCount++;
-            //AV could be running down a slope which mean freefall,run,frefall run ...
-            //to remove anim flicker, check if AV has been falling down continously for last few consecutive frames
-            //before changing to free fall animation
-            if (this._fallFrameCount > this._fallFrameCountMin) {
-              anim = this._actionMap.fall;
-            }
-          }
-        } else {
-          this._endFreeFall();
-        }
+        // if (this._avatar.position.y > this._avStartPos.y) {
+        //   const actDisp: Vector3 = this._avatar.position.subtract(this._avStartPos);
+        //   const _slp: number = this._verticalSlope(actDisp);
+        //   if (_slp >= this._sl2) {
+        //     //this._climbingSteps=true;
+        //     //is av trying to go up steps
+        //     if (this._stepOffset > 0) {
+        //       if (this._vMoveTot == 0) {
+        //         //if just started climbing note down the position
+        //         this._vMovStartPos.copyFrom(this._avStartPos);
+        //       }
+        //       this._vMoveTot = this._vMoveTot + (this._avatar.position.y - this._avStartPos.y);
+        //       if (this._vMoveTot > this._stepOffset) {
+        //         //move av back to its position at begining of steps
+        //         this._vMoveTot = 0;
+        //         this._avatar.position.copyFrom(this._vMovStartPos);
+        //         this._endFreeFall();
+        //       }
+        //     } else {
+        //       //move av back to old position
+        //       this._avatar.position.copyFrom(this._avStartPos);
+        //       this._endFreeFall();
+        //     }
+        //   } else {
+        //     this._vMoveTot = 0;
+        //     if (_slp > this._sl1) {
+        //       //av is on a steep slope , continue increasing the moveFallTIme to deaccelerate it
+        //       this._fallFrameCount = 0;
+        //       this._inFreeFall = false;
+        //     } else {
+        //       //continue walking
+        //       this._endFreeFall();
+        //     }
+        //   }
+        // } else if ((this._avatar.position.y) < this._avStartPos.y) {
+        //   const actDisp: Vector3 = this._avatar.position.subtract(this._avStartPos);
+        //   if (!(this._areVectorsEqual(actDisp, this._moveVector, 0.001))) {
+        //     //AV is on slope
+        //     //Should AV continue to slide or walk?
+        //     //if slope is less steeper than acceptable then walk else slide
+        //     if (this._verticalSlope(actDisp) <= this._sl1) {
+        //       this._endFreeFall();
+        //     } else {
+        //       //av is on a steep slope , continue increasing the moveFallTIme to deaccelerate it
+        //       this._fallFrameCount = 0;
+        //       this._inFreeFall = false;
+        //     }
+        //   } else {
+        //     this._inFreeFall = true;
+        //     this._fallFrameCount++;
+        //     //AV could be running down a slope which mean freefall,run,frefall run ...
+        //     //to remove anim flicker, check if AV has been falling down continously for last few consecutive frames
+        //     //before changing to free fall animation
+        //     if (this._fallFrameCount > this._fallFrameCountMin) {
+        //       anim = this._actionMap.fall;
+        //     }
+        //   }
+        // } else {
+        //   this._endFreeFall();
+        // }
       }
     }
     return anim;
