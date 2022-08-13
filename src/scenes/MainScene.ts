@@ -80,7 +80,7 @@ export class MainScene extends Scene {
         camera.keysUp = [];
         camera.keysDown = [];
         camera.lowerRadiusLimit = 0.5;
-        camera.upperRadiusLimit = 4;
+        camera.upperRadiusLimit = 10;
         camera.attachControl(canvas,false);
 
         const animationGroups = {};
